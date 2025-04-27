@@ -61,5 +61,21 @@
             </xs:sequence>
         </xs:complexType>
     </xs:element>
-
+    <xs:element name="ValidationErrorResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="valid" type="xs:boolean"/>
+                <xs:element name="errors" minOccurs="0" maxOccurs="unbounded">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="severity" type="xs:string"/>
+                            <xs:element name="line" type="xs:integer"/>
+                            <xs:element name="column" type="xs:integer"/>
+                            <xs:element name="message" type="xs:string"/>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
 </xs:schema>

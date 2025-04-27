@@ -1,5 +1,6 @@
 package hr.iisbackend.soap;
 
+import hr.iisbackend.model.ValidationResult;
 import hr.iisbackend.service.GenerateArticleXml;
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.Unmarshaller;
@@ -31,18 +32,21 @@ public class SearchArticleEndpoint {
     private GenerateArticleXml generateArticleXml;
     @PayloadRoot(namespace = NAMESPACE_URI, localPart = "SearchRequest")
     @ResponsePayload
-    public SearchResponse search(@RequestPayload SearchRequest request) {
+    public Object search(@RequestPayload SearchRequest request) {
         String term = request.getSearchTerm();
         List<ArticleSoap> matchingArticles = new ArrayList<>();
         System.out.println("started endpoint");
         try {
             File f = new File(ARTICLEPATH);
-            System.out.println(f.getAbsolutePath());
             if(!f.exists() || f.length() == 0) {
-                System.out.println("needed to generate new file");
                 generateArticleXml.GenerateXMLfromJson();
             }
-           // FileInputStream fileIS = new FileInputStream(ARTICLEPATH);
+            File xsd = new File("validators/articles-soap.xsd");
+            ValidationResult validationResult = XmlValidator.validateXmlWithJaxb(f, xsd);
+
+            if (!validationResult.isValid()) {
+                return new ValidationErrorResponse(false, validationResult.getErrors());
+            }
 
             DocumentBuilderFactory builderFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder builder = builderFactory.newDocumentBuilder();

@@ -114,7 +114,7 @@ public class ArticleController {
         return "XML generated successfully!";
     }
     @GetMapping("/search")
-    public SearchResponse searchArticles(@RequestParam String term) {
+    public Object searchArticles(@RequestParam String term) {
         SearchRequest request = new SearchRequest();
         request.setSearchTerm(term);
         return searchArticleEndpoint.search(request);

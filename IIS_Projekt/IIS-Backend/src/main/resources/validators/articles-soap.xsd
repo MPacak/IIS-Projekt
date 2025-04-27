@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           targetNamespace="http://issprojekt/articles"
+           xmlns="http://issprojekt/articles"
+           elementFormDefault="qualified">
+
+    <xs:element name="SearchResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="articles">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="article" maxOccurs="unbounded">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="id" type="xs:string"/>
+                                        <xs:element name="title" type="xs:string"/>
+                                        <xs:element name="subtitle" type="xs:string"/>
+                                        <xs:element name="author" type="xs:string"/>
+
+                                        <xs:element name="tags">
+                                            <xs:complexType>
+                                                <xs:sequence>
+                                                    <xs:element name="tag" type="xs:string" maxOccurs="unbounded"/>
+                                                </xs:sequence>
+                                            </xs:complexType>
+                                        </xs:element>
+
+                                        <xs:element name="topics">
+                                            <xs:complexType>
+                                                <xs:sequence>
+                                                    <xs:element name="topic" type="xs:string" maxOccurs="unbounded"/>
+                                                </xs:sequence>
+                                            </xs:complexType>
+                                        </xs:element>
+
+                                        <xs:element name="claps" type="xs:integer"/>
+                                        <xs:element name="voters" type="xs:integer"/>
+                                        <xs:element name="word_count" type="xs:integer"/>
+                                        <xs:element name="responses_count" type="xs:integer"/>
+                                        <xs:element name="reading_time" type="xs:float"/>
+                                        <xs:element name="url" type="xs:string"/>
+                                        <xs:element name="lang" type="xs:string"/>
+                                        <xs:element name="is_series" type="xs:boolean"/>
+                                        <xs:element name="is_locked" type="xs:boolean"/>
+                                        <xs:element name="is_shortform" type="xs:boolean"/>
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+</xs:schema>
