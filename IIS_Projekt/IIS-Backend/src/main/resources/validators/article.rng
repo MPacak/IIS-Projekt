@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<element name="article" xmlns="http://relaxng.org/ns/structure/1.0" datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
+    <element name="id">
+        <data type="integer"/>
+    </element>
+    <element name="title">
+        <text/>
+    </element>
+    <element name="subtitle">
+        <text/>
+    </element>
+    <element name="author">
+        <text/>
+    </element>
+    <element name="published_at">
+        <data type="date"/>
+    </element>
+    <element name="tags">
+        <zeroOrMore>
+            <element name="tag">
+                <text/>
+            </element>
+        </zeroOrMore>
+    </element>
+    <element name="url">
+        <text/>
+    </element>
+</element>

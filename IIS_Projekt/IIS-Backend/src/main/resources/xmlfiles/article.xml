@@ -1,0 +1,12 @@
+<article>
+    <id>1</id>
+    <title>Interoperability in Web Services</title>
+    <subtitle>Using XML and XSD for validation</subtitle>
+    <author>John Doe</author>
+    <published_at>2024-04-20</published_at>
+    <tags>
+        <tag>soap</tag>
+        <tag>xsd</tag>
+    </tags>
+    <url>https://medium.com/example-article</url>
+</article>
