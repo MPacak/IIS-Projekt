@@ -9,20 +9,17 @@ import hr.iisbackend.service.RngValidatorService;
 import hr.iisbackend.service.XSDValidatorService;
 import hr.iisbackend.soap.SearchArticleEndpoint;
 import hr.iisbackend.soap.SearchRequest;
-import hr.iisbackend.soap.SearchResponse;
 import hr.iisbackend.utils.XmlParser;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 @AllArgsConstructor
 @RestController
+@RequestMapping("/api/articles")
 public class ArticleController {
     private RngValidatorService rngValidatorService;
     private XSDValidatorService xsdValidator;
@@ -119,4 +116,40 @@ public class ArticleController {
         request.setSearchTerm(term);
         return searchArticleEndpoint.search(request);
     }
+    @GetMapping("/get/all")
+    public List<Article> getAllArticles() {
+        return articleService.findAll();
+    }
+
+    // GET by ID
+    @GetMapping("/get/{id}")
+    public ResponseEntity<Article> getArticleById(@PathVariable Long id) {
+        Article article = articleService.findById(id)
+                .orElseThrow(() -> new RuntimeException("Article not found"));
+        return ResponseEntity.ok(article);
+    }
+
+    // POST create new article
+    @PostMapping("/create")
+    public ResponseEntity<Article> createArticle(@RequestBody Article article) {
+        Article created = articleService.save(article);
+        return ResponseEntity.status(HttpStatus.CREATED).body(created);
+    }
+
+    // PUT update existing article
+    @PutMapping("/update/{id}")
+    public ResponseEntity<Article> updateArticle(
+            @PathVariable Long id,
+            @RequestBody Article article) {
+        Article updated = articleService.update(id, article);
+        return ResponseEntity.ok(updated);
+    }
+
+    // DELETE remove article
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<Void> deleteArticle(@PathVariable Long id) {
+        articleService.delete(id);
+        return ResponseEntity.noContent().build();
+    }
+
 }
